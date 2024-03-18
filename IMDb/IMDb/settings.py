@@ -12,12 +12,21 @@ BOT_NAME = 'IMDb'
 SPIDER_MODULES = ['IMDb.spiders']
 NEWSPIDER_MODULE = 'IMDb.spiders'
 
+USER_AGENT = 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0'
+
+DOWNLOADER_MIDDLEWARES = {
+    "scrapy.downloadermiddlewares.useragent.UserAgentMiddleware": None,
+    "scrapy_fake_useragent.middleware.RandomUserAgentMiddleware": 400,
+}
+# headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0'}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'IMDb (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
+
+
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

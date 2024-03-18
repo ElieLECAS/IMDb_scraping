@@ -1,2 +1,4 @@
 scrapy
 ipython
+scrapy-fake-useragent
+psycopg2-binary
