@@ -24,7 +24,7 @@ class MoviesSpiderSpider(scrapy.Spider):
         movie_item["title"] = bandeau.css("div h1 span.hero__primary-text::text").get()
         # movie_item["score"] = informations[1].css("td::text").get()
         # movie_item["genre"] = response.css("p.price_color::text").get()
-        # movie_item["year"] = informations[2].css("ul.ipc-inline-list").get()
+        movie_item["year"] = bandeau.css("div ul li.ipc-inline-list__item a.ipc-link::text").get()
         # movie_item["duration"] = informations[3].css("td::text").get()
         # movie_item["description"] = informations[4].css("td::text").get()
         # movie_item["actors"] = informations[5].css("td::text").get()
