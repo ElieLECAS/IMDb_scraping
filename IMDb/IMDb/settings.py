@@ -24,7 +24,7 @@ DOWNLOADER_MIDDLEWARES = {
 #USER_AGENT = 'IMDb (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 
 
