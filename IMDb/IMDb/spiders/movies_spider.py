@@ -30,7 +30,7 @@ class MoviesSpiderSpider(scrapy.Spider):
         movie_item["duration"] = ulul[1].css("li.ipc-inline-list__item:nth-of-type(3)::text").get()
         movie_item["description"] = informations.css('div p span::text').get()
         movie_item["director"] = informations.css("div:has(li.ipc-metadata-list__item) ul li.ipc-metadata-list__item  a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").get() 
-        movie_item["actors"] = informations.css("ul.ipc-inline-list.ipc-inline-list--show-dividers.ipc-inline-list--inline.ipc-metadata-list-item__list-content li.ipc-inline-list__item a::text").getall()
+        movie_item["actors"] = informations.css("li.ipc-metadata-list__item.ipc-metadata-list-item--link:nth-of-type(3) div ul.ipc-inline-list.ipc-inline-list--show-dividers.ipc-inline-list--inline.ipc-metadata-list-item__list-content li.ipc-inline-list__item a::text").getall()
         # movie_item["country"] = response.css("p.star-rating").attrib["class"]
         
         yield movie_item

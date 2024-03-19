@@ -23,3 +23,15 @@ class MovieItem(scrapy.Item):
     director = scrapy.Field()
     actors = scrapy.Field()
     # country = scrapy.Field()
+
+class SerieItem(scrapy.Item):
+
+    title = scrapy.Field()
+    score = scrapy.Field()
+    genre = scrapy.Field()
+    year = scrapy.Field()
+    public = scrapy.Field()
+    duration = scrapy.Field()
+    description = scrapy.Field()
+    creator = scrapy.Field()
+    actors = scrapy.Field()
