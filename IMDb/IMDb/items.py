@@ -22,4 +22,4 @@ class MovieItem(scrapy.Item):
     description = scrapy.Field()
     director = scrapy.Field()
     actors = scrapy.Field()
-    # country =scrapy.Field()
+    # country = scrapy.Field()
