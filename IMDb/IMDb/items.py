@@ -14,11 +14,12 @@ class ImdbItem(scrapy.Item):
 class MovieItem(scrapy.Item):
 
     title = scrapy.Field()
-    # score = scrapy.Field()
-    # genre = scrapy.Field()
+    score = scrapy.Field()
+    genre = scrapy.Field()
     year = scrapy.Field()
-    # duration = scrapy.Field()
-    # description = scrapy.Field()
-    # actors = scrapy.Field()
-    # public = scrapy.Field()
+    public = scrapy.Field()
+    duration = scrapy.Field()
+    description = scrapy.Field()
+    director = scrapy.Field()
+    actors = scrapy.Field()
     # country =scrapy.Field()

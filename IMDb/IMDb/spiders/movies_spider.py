@@ -18,17 +18,19 @@ class MoviesSpiderSpider(scrapy.Spider):
 
     def parse_movie_page(self,response):
         bandeau = response.css('div:has(span.hero__primary-text)')
-        # informations = response.css("table tr")
+        ulul = bandeau.css('ul.ipc-inline-list.ipc-inline-list--show-dividers:has(li.ipc-inline-list__item)')
+        informations = response.css("section:has(div.ipc-chip-list--baseAlt.ipc-chip-list)")
         movie_item = MovieItem()
 
         movie_item["title"] = bandeau.css("div h1 span.hero__primary-text::text").get()
-        # movie_item["score"] = informations[1].css("td::text").get()
-        # movie_item["genre"] = response.css("p.price_color::text").get()
-        movie_item["year"] = bandeau.css("div ul li.ipc-inline-list__item a.ipc-link::text").get()
-        # movie_item["duration"] = informations[3].css("td::text").get()
-        # movie_item["description"] = informations[4].css("td::text").get()
-        # movie_item["actors"] = informations[5].css("td::text").get()
-        # movie_item["public"] = informations[6].css("td::text").get()
+        movie_item["score"] = bandeau.css("span.ipc-btn__text div div div span::text").get()
+        movie_item["genre"] = informations.css("div.ipc-chip-list--baseAlt.ipc-chip-list div a.ipc-chip.ipc-chip--on-baseAlt span::text").get()
+        movie_item["year"] = ulul[1].css("li.ipc-inline-list__item a.ipc-link.ipc-link--baseAlt.ipc-link--inherit-color::text").get()
+        movie_item["public"] = ulul[1].css("li.ipc-inline-list__item:nth-of-type(2) a.ipc-link.ipc-link--baseAlt.ipc-link--inherit-color::text").get()
+        movie_item["duration"] = ulul[1].css("li.ipc-inline-list__item:nth-of-type(3)::text").get()
+        movie_item["description"] = informations.css('div p span::text').get()
+        movie_item["director"] = informations.css("div:has(li.ipc-metadata-list__item) ul li.ipc-metadata-list__item  a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").get() 
+        movie_item["actors"] = informations.css("ul.ipc-inline-list.ipc-inline-list--show-dividers.ipc-inline-list--inline.ipc-metadata-list-item__list-content li.ipc-inline-list__item a::text").getall()
         # movie_item["country"] = response.css("p.star-rating").attrib["class"]
         
         yield movie_item
