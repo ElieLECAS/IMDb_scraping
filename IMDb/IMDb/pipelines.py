@@ -65,6 +65,8 @@ class YearPipeline:
 
 class ConvertToIntPipeline:
     def process_item(self, item, spider):
+        if "score" in item:
+            item["score"] = float(item["score"])
         if "year" in item:
             item["year"] = int(item["year"])
         if "duration" in item:
