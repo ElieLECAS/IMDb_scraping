@@ -28,6 +28,10 @@ ROBOTSTXT_OBEY = False
 
 ITEM_PIPELINES = {
     'IMDb.pipelines.ConvertirDureePipeline': 300,
+    'IMDb.pipelines.ActorsPipeline': 300,
+    'IMDb.pipelines.SeasonsPipeline': 300,
+    'IMDb.pipelines.YearPipeline': 300,
+    
 }
 
 
