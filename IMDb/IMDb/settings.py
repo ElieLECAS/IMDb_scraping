@@ -31,7 +31,8 @@ ITEM_PIPELINES = {
     'IMDb.pipelines.ActorsPipeline': 300,
     'IMDb.pipelines.SeasonsPipeline': 300,
     'IMDb.pipelines.YearPipeline': 300,
-    
+    'IMDb.pipelines.SaveMyMoviesPipeline': 300,
+    'IMDb.pipelines.SaveMySeriesPipeline': 300,    
 }
 
 

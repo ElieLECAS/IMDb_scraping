@@ -60,5 +60,10 @@ class YearPipeline:
         item["year"] = item["year"][:4] if item["year"] else None
         return item
 
+class SaveMyMoviesPipeline:
+    pass
+
+class SaveMySeriesPipeline:
+    pass
 
 
