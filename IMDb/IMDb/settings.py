@@ -26,6 +26,10 @@ DOWNLOADER_MIDDLEWARES = {
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
+ITEM_PIPELINES = {
+    'IMDb.pipelines.ConvertirDureePipeline': 300,
+}
+
 
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
