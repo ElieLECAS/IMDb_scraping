@@ -20,6 +20,9 @@ class ConvertirDureePipeline:
         return item
     
     def convertir_duree_en_minutes(self, duree):
+        if not duree:
+            return 0
+     
         heures = 0
         minutes = 0
         if 'h' in duree:
@@ -38,5 +41,24 @@ class ActorsPipeline:
         return item
     
     def keep_first_actors(self, actors):
-        return actors[:3]
+        return actors[:3] 
+    
+class SeasonsPipeline:
+    def process_item(self, item, spider):
+        if 'seasons' in item:
+            item["seasons"] = self.set_one_season(item["seasons"])
+        return item
+    
+    def set_one_season(self, seasons):
+        if not seasons:
+            return '1'
+        else:
+            return seasons
+        
+class YearPipeline:
+    def process_item(self, item, spider):
+        item["year"] = item["year"][:4] if item["year"] else None
+        return item
+
+
 
