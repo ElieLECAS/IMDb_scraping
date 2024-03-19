@@ -32,6 +32,10 @@ class SerieItem(scrapy.Item):
     year = scrapy.Field()
     public = scrapy.Field()
     duration = scrapy.Field()
+    episodes = scrapy.Field()
+    seasons = scrapy.Field()
     description = scrapy.Field()
     creator = scrapy.Field()
     actors = scrapy.Field()
+    country = scrapy.Field()
+
