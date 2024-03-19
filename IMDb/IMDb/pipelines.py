@@ -6,6 +6,7 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
+# import mysql.connector
 
 
 class ImdbPipeline:
@@ -59,11 +60,60 @@ class YearPipeline:
     def process_item(self, item, spider):
         item["year"] = item["year"][:4] if item["year"] else None
         return item
+    
 
-class SaveMyMoviesPipeline:
-    pass
 
-class SaveMySeriesPipeline:
-    pass
+class ConvertToIntPipeline:
+    def process_item(self, item, spider):
+        if "year" in item:
+            item["year"] = int(item["year"])
+        if "duration" in item:
+            item["duration"] = int(item["duration"]) 
+        if "episodes" in item:
+            item["episodes"] = int(item["episodes"])
+        if "seasons" in item:
+            item["seasons"] = int(item["seasons"])
+        if "score" in item:
+            item["score"] = float(item["score"])
+        return item
+
+
+
+# class SaveMyMoviesPipeline:
+#     def __init__(self):
+#         self.conn = mysql.connector.connect(
+#             host = 'localhost',
+#             user = 'root',
+#             password = '',
+#             database = 'movies'
+#         )
+
+#         self.cur = self.conn.cursor
+
+#         self.cur.execute("""
+#         CREATE TABLE IF NOT EXISTS movies(
+#             id int NOT NULL auto_increment,
+#             title text,
+#             score DECIMAL,
+#             genre text,
+#             year INTEGER,
+#             public text,
+#             duration INTEGER,
+#             description text,
+#             director text,
+#             actors text,
+#         )
+
+# """
+#         )
+
+# class SaveMySeriesPipeline:
+#     def __init__(self):
+#         self.conn = mysql.connector.connect(
+#             host = 'localhost',
+#             user = 'root',
+#             password = '',
+#             database = 'series'
+#         )
 
 
