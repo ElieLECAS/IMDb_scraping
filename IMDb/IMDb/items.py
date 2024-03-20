@@ -20,7 +20,7 @@ class MovieItem(scrapy.Item):
     public = scrapy.Field()
     duration = scrapy.Field()
     description = scrapy.Field()
-    director = scrapy.Field()
+    creator = scrapy.Field()
     actors = scrapy.Field()
     # country = scrapy.Field()
 
