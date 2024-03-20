@@ -6,13 +6,11 @@
 
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
-# import mysql.connector
-
+import sqlite3
 
 class ImdbPipeline:
     def process_item(self, item, spider):
         return item
-
 
 class ConvertirDureePipeline:
     def process_item(self, item, spider):
@@ -22,7 +20,7 @@ class ConvertirDureePipeline:
     
     def convertir_duree_en_minutes(self, duree):
         if not duree:
-            return 0
+            return None
      
         heures = 0
         minutes = 0
@@ -34,6 +32,7 @@ class ConvertirDureePipeline:
         elif 'm' in duree:
             minutes = int(duree.split("m")[0].strip())
         duree_en_minutes = heures * 60 + minutes
+
         return duree_en_minutes
 
 class ActorsPipeline:
@@ -61,61 +60,170 @@ class YearPipeline:
         item["year"] = item["year"][:4] if item["year"] else None
         return item
     
-
-
 class ConvertToIntPipeline:
     def process_item(self, item, spider):
-        if "score" in item:
-            item["score"] = float(item["score"])
-        if "year" in item:
-            item["year"] = int(item["year"])
-        if "duration" in item:
-            item["duration"] = int(item["duration"]) 
+
+        item["score"] = float(item["score"])
+        item["year"] = int(item["year"])
+        # item["duration"] = int(item["duration"]) 
+
         if "episodes" in item:
             item["episodes"] = int(item["episodes"])
         if "seasons" in item:
             item["seasons"] = int(item["seasons"])
-        if "score" in item:
-            item["score"] = float(item["score"])
         return item
-
-
 
 # class SaveMyMoviesPipeline:
 #     def __init__(self):
-#         self.conn = mysql.connector.connect(
-#             host = 'localhost',
-#             user = 'root',
-#             password = '',
-#             database = 'movies'
-#         )
 
-#         self.cur = self.conn.cursor
+#         self.conn = sqlite3.connect('movies.db')
+#         self.cur = self.conn.cursor()
 
 #         self.cur.execute("""
 #         CREATE TABLE IF NOT EXISTS movies(
-#             id int NOT NULL auto_increment,
-#             title text,
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             title TEXT,
 #             score DECIMAL,
-#             genre text,
+#             genre TEXT,
 #             year INTEGER,
-#             public text,
+#             public TEXT,
 #             duration INTEGER,
-#             description text,
-#             director text,
-#             actors text,
+#             description TEXT,
+#             director TEXT,
+#             actors TEXT
 #         )
+#         """)
+#         self.conn.commit()
 
-# """
-#         )
+#     def process_item(self, item, spider):
+#         self.cur.execute("""
+#         INSERT INTO movies (title, score, genre, year, public, duration, description, director, actors) 
+#         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+#         """, (
+#             item['title'],
+#             item['score'],
+#             item['genre'],
+#             item['year'],
+#             item['public'],
+#             item['duration'],
+#             item['description'],
+#             item['director'],
+#             ', '.join(item['actors']) if item['actors'] else None
+#         ))
+#         self.conn.commit()
+#         return item
+
+#     def close_spider(self, spider):
+#         self.cur.close()
+#         self.conn.close()
+
 
 # class SaveMySeriesPipeline:
 #     def __init__(self):
-#         self.conn = mysql.connector.connect(
-#             host = 'localhost',
-#             user = 'root',
-#             password = '',
-#             database = 'series'
+
+#         self.conn = sqlite3.connect('series.db')
+#         self.cur = self.conn.cursor()
+
+#         self.cur.execute("""
+#         CREATE TABLE IF NOT EXISTS series(
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             title TEXT,
+#             score DECIMAL,
+#             genre TEXT,
+#             year INTEGER,
+#             public TEXT,
+#             duration INTEGER,
+#             episodes INTEGER,
+#             seasons INTEGER,
+#             description TEXT,
+#             director TEXT,
+#             actors TEXT
 #         )
+#         """)
+#         self.conn.commit()
 
+#     def process_item(self, item, spider):
+#         self.cur.execute("""
+#         INSERT INTO movies (title, score, genre, year, public, duration, description, director, actors) 
+#         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+#         """, (
+#             item['title'],
+#             item['score'],
+#             item['genre'],
+#             item['year'],
+#             item['public'],
+#             item['duration'],
+#             item['episodes'],
+#             item['seasons'],
+#             item['description'],
+#             item['director'],
+#             ', '.join(item['actors']) if item['actors'] else None
+#         ))
+#         self.conn.commit()
+#         return item
 
+#     def close_spider(self, spider):
+#         self.cur.close()
+#         self.conn.close()
+
+# class SaveAllPipelines:
+#     def __init__(self):
+
+#         self.conn = sqlite3.connect('imdb_bdd.db')
+#         self.cur = self.conn.cursor()
+
+#         self.cur.execute("""
+#         CREATE TABLE IF NOT EXISTS movies(
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             title TEXT,
+#             score DECIMAL,
+#             genre TEXT,
+#             year INTEGER,
+#             public TEXT,
+#             duration INTEGER,
+#             description TEXT,
+#             creator TEXT,
+#             actors TEXT
+#         )
+#         """)
+        
+#         self.cur.execute("""
+#         CREATE TABLE IF NOT EXISTS series(
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             title TEXT,
+#             score DECIMAL,
+#             genre TEXT,
+#             year INTEGER,
+#             public TEXT,
+#             duration INTEGER,
+#             episodes INTEGER,
+#             seasons INTEGER,
+#             description TEXT,
+#             creator TEXT,
+#             actors TEXT
+#         )
+#         """)
+        
+#         self.conn.commit()
+
+#     def process_item(self, item, spider):
+#         if 'episodes' in item and 'seasons' in item:
+#             table_name = 'series'
+#         else:
+#             table_name = 'movies'
+
+#         columns = ', '.join(item.keys())
+#         placeholders = ', '.join('?' * len(item))
+#         values = tuple(item.values())
+
+#         self.cur.execute(f"""
+#         INSERT INTO {table_name} ({columns}) 
+#         VALUES ({placeholders})
+#         """, values)
+
+#         self.conn.commit()
+#         return item
+    
+#     def close_spider(self, spider):
+#         self.cur.close()
+#         self.conn.close()
