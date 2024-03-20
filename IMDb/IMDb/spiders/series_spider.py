@@ -29,7 +29,7 @@ class SeriesSpiderSpider(scrapy.Spider):
         serie_item["public"] = ulul[1].css("li.ipc-inline-list__item:nth-of-type(3) a.ipc-link.ipc-link--baseAlt.ipc-link--inherit-color::text").get()
         serie_item["duration"] = ulul[1].css("li.ipc-inline-list__item:nth-of-type(4)::text").get()
         serie_item["episodes"] = response.css("section.ipc-page-section.ipc-page-section--base div.ipc-title.ipc-title--base.ipc-title--section-title.ipc-title--on-textPrimary h3.ipc-title__text span.ipc-title__subtext::text").get()
-        serie_item["seasons"] = response.css("select.ipc-simple-select__input option:nth-of-type(2)::text").get()
+        serie_item["seasons"] = response.css("span.ipc-simple-select.ipc-simple-select--base.ipc-simple-select--on-accent2 label.ipc-simple-select__label::text").get()
         serie_item["description"] = informations.css('div p span::text').get()
         serie_item["creator"] = informations.css("div:has(li.ipc-metadata-list__item) ul li.ipc-metadata-list__item  a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").get() 
         serie_item["actors"] = informations.css("li.ipc-metadata-list__item.ipc-metadata-list-item--link:has(a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link) div ul.ipc-inline-list.ipc-inline-list--show-dividers.ipc-inline-list--inline.ipc-metadata-list-item__list-content li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").getall()

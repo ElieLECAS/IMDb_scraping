@@ -30,11 +30,10 @@ ITEM_PIPELINES = {
     'IMDb.pipelines.ConvertirDureePipeline': 300,
     'IMDb.pipelines.ActorsPipeline': 300,
     'IMDb.pipelines.SeasonsPipeline': 300,
-    'IMDb.pipelines.YearPipeline': 300,
     'IMDb.pipelines.ConvertToIntPipeline': 300,
-    # 'IMDb.pipelines.SaveAllPipelines': 300,
-    # 'IMDb.pipelines.SaveMyMoviesPipeline': 300,
-    # 'IMDb.pipelines.SaveMySeriesPipeline': 300,    
+    'IMDb.pipelines.ActorsPipeline': 300,
+    'IMDb.pipelines.SaveAllPipelines': 300,
+  
 
 }
 
