@@ -2,5 +2,3 @@ scrapy
 ipython
 scrapy-fake-useragent
 psycopg2-binary
-mysql
-mysql-connector-python
