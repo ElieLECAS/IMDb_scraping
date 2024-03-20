@@ -70,7 +70,7 @@ class ConvertToIntPipeline:
             item["seasons"] = int(item["seasons"])
         return item
 
-class ActorsPipeline:
+class ActorsSplitPipeline:
     def process_item(self, item, spider):
         if "actors" in item:
             item["actors"] = ', '.join(item["actors"][:3])
@@ -78,45 +78,43 @@ class ActorsPipeline:
 
 
 class SaveAllPipelines:
-    def __init__(self, item):
-
+    def __init__(self):
         self.conn = sqlite3.connect('imdb_bdd.db')
         self.cur = self.conn.cursor()
 
+        self.cur.execute("""
+        CREATE TABLE IF NOT EXISTS movies(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            score DECIMAL,
+            genre TEXT,
+            year INTEGER,
+            public TEXT,
+            duration INTEGER,
+            description TEXT,
+            creator TEXT,
+            actors TEXT,
+            country TEXT
+        )
+        """)
         
-        if 'episodes' in item and 'seasons' in item:
-            self.cur.execute("""
-            CREATE TABLE IF NOT EXISTS series(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                score DECIMAL,
-                genre TEXT,
-                year INTEGER,
-                public TEXT,
-                duration INTEGER,
-                episodes INTEGER,
-                seasons INTEGER,
-                description TEXT,
-                creator TEXT,
-                actors TEXT
-            )
-            """)
-        else:
-            self.cur.execute("""
-            CREATE TABLE IF NOT EXISTS movies(
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                title TEXT,
-                score DECIMAL,
-                genre TEXT,
-                year INTEGER,
-                public TEXT,
-                duration INTEGER,
-                description TEXT,
-                creator TEXT,
-                actors TEXT
-            )
-            """)
-
+        self.cur.execute("""
+        CREATE TABLE IF NOT EXISTS series(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT,
+            score DECIMAL,
+            genre TEXT,
+            year INTEGER,
+            public TEXT,
+            duration INTEGER,
+            episodes INTEGER,
+            seasons INTEGER,
+            description TEXT,
+            creator TEXT,
+            actors TEXT,
+            country TEXT
+        )
+        """)
         
         self.conn.commit()
 

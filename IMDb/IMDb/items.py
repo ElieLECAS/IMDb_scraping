@@ -22,7 +22,7 @@ class MovieItem(scrapy.Item):
     description = scrapy.Field()
     creator = scrapy.Field()
     actors = scrapy.Field()
-    # country = scrapy.Field()
+    country = scrapy.Field()
 
 class SerieItem(scrapy.Item):
 
@@ -37,5 +37,5 @@ class SerieItem(scrapy.Item):
     description = scrapy.Field()
     creator = scrapy.Field()
     actors = scrapy.Field()
-    # country = scrapy.Field()
+    country = scrapy.Field()
 
