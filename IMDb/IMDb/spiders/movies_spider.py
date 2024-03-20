@@ -31,7 +31,6 @@ class MoviesSpiderSpider(scrapy.Spider):
         movie_item["description"] = informations.css('div p span::text').get()
         movie_item["creator"] = informations.css("div:has(li.ipc-metadata-list__item) ul li.ipc-metadata-list__item a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").get() 
         movie_item["actors"] = informations.css("li.ipc-metadata-list__item.ipc-metadata-list-item--link:has(a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link) div ul.ipc-inline-list.ipc-inline-list--show-dividers.ipc-inline-list--inline.ipc-metadata-list-item__list-content li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-item.ipc-metadata-list-item__list-content-item--link::text").getall()
-        # movie_item["actors"] = informations.css("li.ipc-metadata-list__item.ipc-metadata-list-item--link:nth-of-type(3) div ul.ipc-inline-list.ipc-inline-list--show-dividers.ipc-inline-list--inline.ipc-metadata-list-item__list-content li.ipc-inline-list__item a::text").getall()
-        # movie_item["country"] = response.css("p.star-rating").attrib["class"]
+        movie_item["country"] = response.css("ul.ipc-inline-list.ipc-inline-list--show-dividers.ipc-inline-list--inline.ipc-metadata-list-item__list-content base li.ipc-inline-list__item a.ipc-metadata-list-item__list-content-itemipc-metadata-list-item__list-content-item--link::text").get()
         
         yield movie_item
