@@ -1,8 +1,6 @@
 SELECT *
 FROM movies;
 
-
-
 ----Quel est le film le plus long ?
 
 --SELECT title, duration
@@ -71,11 +69,11 @@ FROM movies;
 
 ----En fonction du genre, quel est le coût de tournage d’une minute de film ?
 
-SELECT genre, ROUND((SUM(budget) / (SUM(duration) / COUNT(duration))) / AVG(LENGTH(title)), 2) AS cost_per_minute
-FROM movies
-WHERE duration > 0
-GROUP BY genre
-ORDER BY cost_per_minute DESC
+--SELECT genre, ROUND((SUM(budget) / (SUM(duration) / COUNT(duration))) / AVG(LENGTH(title)), 2) AS cout_par_minute
+--FROM movies
+--WHERE duration > 0
+--GROUP BY genre
+--ORDER BY cout_par_minute DESC
 
 
 ----Quelles sont les séries les mieux notées ?
@@ -85,6 +83,22 @@ ORDER BY cost_per_minute DESC
 --ORDER BY score DESC
 --LIMIT 10
 
+
+
+--SELECT *
+--FROM movies
+--WHERE title LIKE "La %" OR title LIKE "The %"
+
+--SELECT actors, COUNT(title)
+--FROM movies
+--WHERE actors LIKE
+--GROUP BY actors
+
+
+--SELECT title,year, country
+--FROM movies
+--WHERE year<2000 AND country != 'United States' 
+--ORDER BY score DESC
 
 
 
