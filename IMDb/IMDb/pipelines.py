@@ -54,6 +54,18 @@ class SeasonsPipeline:
             return '1'
         else:
             return seasons
+        
+class CleanAmountPipeline:
+    def process_item(self, item, spider):
+        if "budget" in item:
+            budget = item['budget']
+            if budget is not None:
+                clean_budget = ''.join(char for char in budget if char.isdigit())
+                item['budget'] = int(clean_budget)
+        
+        return item
+
+
     
 class ConvertToIntPipeline:
     def process_item(self, item, spider):
@@ -94,7 +106,8 @@ class SaveAllPipelines:
             description TEXT,
             creator TEXT,
             actors TEXT,
-            country TEXT
+            country TEXT,
+            budget INTEGER
         )
         """)
         
